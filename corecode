@@ -1,9 +1,13 @@
-int sensor1Input = 0;
+int sensor1Input = 0; 
 int sensor2Input = 1;
 int potInput = 2;
+// setup the in put ports for analog singal
+
 
 int motorOutput1 = 3;
 int motorOutput2 = 5;
+// setup the out put ports for analog singal
+
 
 int potValue;
 int ledValue;
@@ -15,7 +19,9 @@ int sensor1Value;
 int sensor2Value;
 
 int motor1ValueInitial=50;
-int motor2ValueInitial=65;;
+int motor2ValueInitial=65;
+// set up the initial rotation of the motor
+
 int motor1Value;
 int motor2Value;
 
@@ -25,17 +31,18 @@ void setup()
   pinMode(motorOutput2, OUTPUT);
   Serial.begin(9600);
 }
+// stander process of setting output mode of pwm ports
 
 void loop()
 {
-  sensor1Value=analogRead(sensor1Input);
-  sensor2Value=analogRead(sensor2Input);
-  potValue=analogRead(potInput);
-  sensorThreshold=potValue;
+  sensor1Value=analogRead(sensor1Input);  // read the value of light sensor 1
+  sensor2Value=analogRead(sensor2Input); // read the value of light sensor 2
+  potValue=analogRead(potInput);  // read the value of the potentiomitor
+  sensorThreshold=potValue; // use the value of potentiomitor as the threshold of light
   
   if((sensor1Value-sensorThreshold)>=10)
   {
-    motor1Value=motor1ValueInitial+35;
+    motor1Value=motor1ValueInitial+35;        // if the light sensor finds the value is greater than the threshold than to accelarate the motor1
   }
   else
   {
@@ -43,14 +50,14 @@ void loop()
   }
   if((sensor2Value-sensorThreshold)>=10)
   {
-    motor2Value=motor2ValueInitial+50;
+    motor2Value=motor2ValueInitial+50;      //  if the light sensor finds the value is greater than the threshold than to accelarate the motor2
   }
   else
   {
     motor2Value=motor2ValueInitial;
   }
   analogWrite(motorOutput2,motor2Value);
-  analogWrite(motorOutput1,motor1Value);
-  Serial.println(motor1Value);
+  analogWrite(motorOutput1,motor1Value);    // output the value to motor
+  Serial.println(motor1Value);            // for monitor and test purpos
 }
   
